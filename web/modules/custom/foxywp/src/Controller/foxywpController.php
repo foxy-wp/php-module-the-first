@@ -16,7 +16,7 @@ class foxywpController extends ControllerBase {
    */
   public function myPage() {
     return [
-      '#markup' => 'You can add here a photo of your cat.',
+      '#markup' => 'You can add here a photo of your cat!',
     ];
   }
 
