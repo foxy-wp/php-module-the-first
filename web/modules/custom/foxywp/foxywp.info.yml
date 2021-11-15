@@ -1,7 +1,8 @@
 name:  foxywp
-description:  Custom module for learning Drupal 9
+description:  This module creates a page with a list of cats and form where users can leave photos of their pets.
 type:  module
 package:  Custom
 
+core:  8.x
 core_version_requirement: ^8 || ^9
 
