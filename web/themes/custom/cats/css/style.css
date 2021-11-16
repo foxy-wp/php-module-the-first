@@ -1,0 +1,30 @@
+/* montagu-slab-200 - latin */
+
+@font-face {
+  font-family: "Montagu Slab";
+  font-style: normal;
+  font-weight: 200;
+  src: url("../fonts/montagu-slab-v1-latin-200.eot");
+  /* IE9 Compat Modes */
+  src: local(""), url("../fonts/montagu-slab-v1-latin-200.eot?#iefix") format("embedded-opentype"), url("../fonts/montagu-slab-v1-latin-200.woff2") format("woff2"), url("../fonts/montagu-slab-v1-latin-200.woff") format("woff"), url("../fonts/montagu-slab-v1-latin-200.ttf") format("truetype"), url("../fonts/montagu-slab-v1-latin-200.svg#MontaguSlab") format("svg");
+  /* Legacy iOS */
+}
+
+/* montagu-slab-regular - latin */
+
+@font-face {
+  font-family: "Montagu Slab";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/montagu-slab-v1-latin-regular.eot");
+  /* IE9 Compat Modes */
+  src: local(""), url("../fonts/montagu-slab-v1-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/montagu-slab-v1-latin-regular.woff2") format("woff2"), url("../fonts/montagu-slab-v1-latin-regular.woff") format("woff"), url("../fonts/montagu-slab-v1-latin-regular.ttf") format("truetype"), url("../fonts/montagu-slab-v1-latin-regular.svg#MontaguSlab") format("svg");
+  /* Legacy iOS */
+}
+
+.js-quickedit-main-content .region-highlighted .js-quickedit-page-title {
+  color: #3a3a3a;
+  font-size: 28px;
+  font-weight: 200;
+  font-family: "Montagu Slab", sans-serif;
+}
