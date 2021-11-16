@@ -6,41 +6,15 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Configure example settings for this site.
+ * Provides a foxywp form.
  */
 class FoxywpForm extends FormBase {
-
-  /**
-   * The current user.
-   *
-   * @var \Drupal\Core\Session\AccountProxyInterface
-   */
-  protected $currentUser;
-
-  /**
-   * Constructs a new FooForm object.
-   *
-   * @param \Drupal\Core\Session\AccountProxyInterface $account_proxy
-   *   The account proxy.
-   */
-  public function __construct(AccountProxyInterface $account_proxy) {
-    $this->currentUser = $account_proxy;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('current_user')
-    );
-  }
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'foo';
+    return 'foxywp_foxywp';
   }
 
   /**
@@ -49,10 +23,9 @@ class FoxywpForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $form['message'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Message'),
+      '#type' => 'textfield',
+      '#title' => $this->t("Your cat's name:"),
       '#required' => TRUE,
-      '#default_value' => $this->currentUser->getAccountName(),
     ];
 
     $form['actions'] = [
@@ -60,7 +33,7 @@ class FoxywpForm extends FormBase {
     ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Send'),
+      '#value' => $this->t('Add cat'),
     ];
 
     return $form;
@@ -70,8 +43,11 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    if (mb_strlen($form_state->getValue('message')) < 10) {
-      $form_state->setErrorByName('name', $this->t('Message should be at least 10 characters.'));
+    if (mb_strlen($form_state->getValue('message')) < 2) {
+      $form_state->setErrorByName('name', $this->t("The cat's name must  be at least 2 characters."));
+    }
+    elseif (mb_strlen($form_state->getValue('message')) > 32){
+      $form_state->setErrorByName('name', $this->t("The cat's name must be no longer than 32 characters"));
     }
   }
 
@@ -79,7 +55,7 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->messenger()->addStatus($this->t('The message has been sent.'));
+    $this->messenger()->addStatus($this->t('The cat added'));
     $form_state->setRedirect('<front>');
   }
 

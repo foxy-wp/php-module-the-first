@@ -7,3 +7,11 @@ foxywp.my_page:
     _permission: 'access content'
 
 
+
+foxywp.foxywp:
+  path: '/foxywp/foxywp'
+  defaults:
+    _title: 'Foxywp'
+    _form: 'Drupal\foxywp\Form\FoxywpForm'
+  requirements:
+    _permission: 'access content'
