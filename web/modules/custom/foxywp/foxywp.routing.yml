@@ -5,3 +5,11 @@ foxywp.my_page:
     _title: 'Hello!'
   requirements:
     _permission: 'access content'
+
+    foxywp.settings:
+      path: '/admin/structure/foxywp/settings'
+      defaults:
+        _form: '\Drupal\foxywp\Form\DrupalbookSettingsForm'
+        _title: 'Form for cats names'
+      requirements:
+        _permission: 'access content'

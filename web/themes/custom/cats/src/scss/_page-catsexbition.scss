@@ -1,11 +1,16 @@
 .js-quickedit-main-content{
   .region-highlighted {
+    .main-content{
+      .region-content{
+        font-size: 20px;
+        .js-quickedit-page-title {
+          color: #3a3a3a;
+          font-size: 28px;
+          font-weight: 200;
+          font-family: 'Montagu Slab', sans-serif;
+        }
 
-    .js-quickedit-page-title {
-      color: #3a3a3a;
-      font-size: 28px;
-      font-weight: 200;
-      font-family: 'Montagu Slab', sans-serif;
+      }
     }
 
   }

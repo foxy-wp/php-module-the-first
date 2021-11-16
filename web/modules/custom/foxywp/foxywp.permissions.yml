@@ -1,0 +1,4 @@
+access premium pages:
+  title: 'Cat list'
+  description: 'A custom permission for your pages.'
+  restrict access: TRUE
