@@ -1,37 +1,46 @@
 <?php
 
-namespace Drupal\foxywp\Controller;
+namespace Drupal\foxywp\Form;
 
-use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides route responses for the Example module.
+ * Configure example settings for this site.
  */
-class FoxywpController extends ControllerBase {
+class FoxywpForm extends FormBase {
 
   /**
-   * Returns a simple page.
+   * The current user.
    *
-   * @return array
-   *   A simple renderable array.
+   * @var \Drupal\Core\Session\AccountProxyInterface
    */
-  public function myPage() {
-    return [
-      '#markup' => 'You can add here a photo of your cat!',
-    ];
+  protected $currentUser;
+
+  /**
+   * Constructs a new FooForm object.
+   *
+   * @param \Drupal\Core\Session\AccountProxyInterface $account_proxy
+   *   The account proxy.
+   */
+  public function __construct(AccountProxyInterface $account_proxy) {
+    $this->currentUser = $account_proxy;
   }
 
-}
-
-class FoxywpForm extends FormBase {
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('current_user')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'foxywpform_foxywp';
+    return 'foo';
   }
 
   /**
@@ -43,6 +52,7 @@ class FoxywpForm extends FormBase {
       '#type' => 'textarea',
       '#title' => $this->t('Message'),
       '#required' => TRUE,
+      '#default_value' => $this->currentUser->getAccountName(),
     ];
 
     $form['actions'] = [

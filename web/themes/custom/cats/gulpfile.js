@@ -4,12 +4,15 @@ let sourse_folder = "src";
 let path = {
   build: {
     css: project_folder + "/",
+    fonts: project_folder + "/fonts/",
   },
   src: {
     css: sourse_folder + "/scss/style.scss",
+    fonts: sourse_folder + "/fonts/*",
   },
   watch: {
     css: sourse_folder + "/scss/**/*.scss",
+
   },
   clean: "./" + project_folder + "/",
 };
@@ -47,10 +50,16 @@ function clean() {
   return del(path.clean);
 }
 
-let build = gulp.series(clean, css);
+function fonts() {
+  return src(path.src.fonts).pipe(dest(path.build.fonts));
+  // .pipe(browsersync.stream())
+}
+
+let build = gulp.series(clean, css, fonts);
 let watch = gulp.parallel(build, watchFiles);
 
 exports.css = css;
 exports.build = build;
+exports.fonts = fonts;
 exports.watch = watch;
 exports.default = watch;
