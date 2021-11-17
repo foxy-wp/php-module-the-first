@@ -22,10 +22,33 @@ class FoxywpForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
+    $form['item'] = [
+      '#type' => 'page_title',
+      '#title' => $this->t("You can add here a photo of your cat!"),
+      '#wrapper_attributes' => ['class' => 'subtitle'],
+    ];
+
     $form['message'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => $this->t("Your cat's name:"),
       '#required' => TRUE,
+    ];
+
+    $form['email'] = [
+      '#type' => 'email',
+      '#title' => $this->t("Your e-mail"),
+      '#required' => TRUE,
+      '#wrapper_attributes' => ['class' => 'col-md-6 col-xs-12'],
+    ];
+
+    $form['picture'] = [
+      '#title' => t('picture'),
+      '#description' => $this->t('Image  png jpg jpeg'),
+      '#type' => 'managed_file',
+      '#required' => TRUE,
+      '#upload_location' => 'public://images/',
+      '#upload_validators' => ['file_validate_extensions' => ['png jpg jpeg']],
+      '#wrapper_attributes' => ['class' => 'subtitle-cats'],
     ];
 
     $form['actions'] = [

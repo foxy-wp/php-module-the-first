@@ -8,10 +8,3 @@ foxywp.my_page:
 
 
 
-foxywp.foxywp:
-  path: '/foxywp/foxywp'
-  defaults:
-    _title: 'Foxywp'
-    _form: 'Drupal\foxywp\Form\FoxywpForm'
-  requirements:
-    _permission: 'access content'

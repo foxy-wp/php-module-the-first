@@ -22,13 +22,9 @@
   /* Legacy iOS */
 }
 
-.js-quickedit-main-content .region-highlighted .main-content .region-content {
-  font-size: 20px;
-}
-
-.js-quickedit-main-content .region-highlighted .main-content .region-content .js-quickedit-page-title {
-  color: #3a3a3a;
-  font-size: 28px;
+.main-container .page-header {
+  color: #2c2c2c;
+  font-size: 36px;
   font-weight: 200;
   font-family: "Montagu Slab", sans-serif;
 }
