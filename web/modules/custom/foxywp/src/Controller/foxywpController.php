@@ -16,9 +16,6 @@ class FoxywpController extends ControllerBase {
    *   A simple renderable array.
    */
   public function myPage() {
-//    return [
-//      '#markup' => 'You can add here a photo of your cat!',
-//
 
     $builtForm = \Drupal::formBuilder()->getForm('Drupal\foxywp\Form\FoxywpForm');
     $renderArray['form'] = $builtForm;

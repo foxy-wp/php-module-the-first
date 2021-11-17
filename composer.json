@@ -21,6 +21,7 @@
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
+        "drupal/media_entity_image": "^1.3",
         "drush/drush": "^10.2"
     },
     "conflict": {

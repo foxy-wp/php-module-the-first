@@ -1,7 +1,7 @@
 /* montagu-slab-200 - latin */
 
 @font-face {
-  font-family: "Montagu Slab";
+  font-family: "Montagu";
   font-style: normal;
   font-weight: 200;
   src: url("../fonts/montagu-slab-v1-latin-200.eot");
@@ -22,9 +22,34 @@
   /* Legacy iOS */
 }
 
+/* bebas-neue-regular - latin */
+
+@font-face {
+  font-family: "Bebas";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/bebas-neue-v2-latin-regular.eot");
+  /* IE9 Compat Modes */
+  src: local(""), url("../fonts/bebas-neue-v2-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bebas-neue-v2-latin-regular.woff2") format("woff2"), url("../fonts/bebas-neue-v2-latin-regular.woff") format("woff"), url("../fonts/bebas-neue-v2-latin-regular.ttf") format("truetype"), url("../fonts/bebas-neue-v2-latin-regular.svg#BebasNeue") format("svg");
+  /* Legacy iOS */
+}
+
 .main-container .page-header {
   color: #2c2c2c;
   font-size: 36px;
   font-weight: 200;
   font-family: "Montagu Slab", sans-serif;
+}
+
+.main-container .foxywp-form .page-header {
+  color: #0d7ab8;
+  font-size: 28px;
+  font-weight: 200;
+  font-family: "Montagu", serif;
+}
+
+.js-quickedit-main-content .col-sm-3 {
+  background: url("../images/right.jpeg") center no-repeat;
+  background-size: contain;
+  height: 400px;
 }

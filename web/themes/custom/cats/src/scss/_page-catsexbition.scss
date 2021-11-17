@@ -1,10 +1,30 @@
-.main-container{
+.main-container {
 
-        .page-header {
-          color: #2c2c2c;
-          font-size: 36px;
-          font-weight: 200;
-          font-family: 'Montagu Slab', sans-serif;
-         }
+
+
+  .page-header {
+    color: #2c2c2c;
+    font-size: 36px;
+    font-weight: 200;
+    font-family: 'Montagu Slab', sans-serif;
+  }
+
+  .foxywp-form {
+    .page-header {
+      color: #0d7ab8;
+      font-size: 28px;
+      font-weight: 200;
+      font-family: 'Montagu', serif;
+    }
+  }
 }
 
+.js-quickedit-main-content {
+
+  .col-sm-3 {
+    background: url("../images/right.jpeg") center no-repeat ;
+    background-size: contain;
+    height: 400px;
+  }
+
+}

@@ -14,7 +14,7 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'foxywp_foxywp';
+    return 'foxywp_form';
   }
 
   /**
@@ -25,7 +25,7 @@ class FoxywpForm extends FormBase {
     $form['item'] = [
       '#type' => 'page_title',
       '#title' => $this->t("You can add here a photo of your cat!"),
-      '#wrapper_attributes' => ['class' => 'subtitle'],
+
     ];
 
     $form['message'] = [
@@ -38,7 +38,6 @@ class FoxywpForm extends FormBase {
       '#type' => 'email',
       '#title' => $this->t("Your e-mail"),
       '#required' => TRUE,
-      '#wrapper_attributes' => ['class' => 'col-md-6 col-xs-12'],
     ];
 
     $form['picture'] = [
@@ -79,7 +78,7 @@ class FoxywpForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The cat added'));
-    $form_state->setRedirect('<front>');
+    $form_state->setRedirect('foxywp/cats');
   }
 
 }
