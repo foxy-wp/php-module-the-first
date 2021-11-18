@@ -1,0 +1,3 @@
+services:
+  foxywp.salutation:
+    class: Drupal\foxywp\Hello\FoxywpHello

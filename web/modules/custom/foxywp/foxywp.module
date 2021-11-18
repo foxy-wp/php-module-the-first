@@ -1,1 +1,17 @@
-<!--hook()-->
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function foxywp_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.foxywp':
+      $output = '';
+      $output .= '<h3>' . t('My first hook') . '</h3>';
+      $output .= '<p>' . t('This is module about cats.') . '</p>';
+      return $output;
+    default:
+  }
+}

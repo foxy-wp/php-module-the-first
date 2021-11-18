@@ -21,8 +21,7 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
-    $form['item'] = [
+     $form['item'] = [
       '#type' => 'page_title',
       '#title' => $this->t("You can add here a photo of your cat!"),
 
@@ -30,6 +29,7 @@ class FoxywpForm extends FormBase {
 
     $form['message'] = [
       '#type' => 'textarea',
+      '#name' => '',
       '#title' => $this->t("Your cat's name:"),
       '#required' => TRUE,
       '#placeholder' => t('Name of the cat must be min-2 letters and max-32 letters'),
