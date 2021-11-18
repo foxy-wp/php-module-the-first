@@ -1,5 +1,10 @@
 .main-container {
 
+  .cats-picture{
+    .form-managed-file{
+      max-width: 25%;
+    }
+  }
 
 
   .page-header {
@@ -10,11 +15,19 @@
   }
 
   .foxywp-form {
+    font-family: 'Bebas', serif;
+    font-size: 20px;
+    color: #ad58ab;
     .page-header {
       color: #0d7ab8;
       font-size: 28px;
       font-weight: 200;
       font-family: 'Montagu', serif;
+    }
+    .form-wrapper{
+      .btn-success{
+        padding-inline: 10px;
+      }
     }
   }
 }

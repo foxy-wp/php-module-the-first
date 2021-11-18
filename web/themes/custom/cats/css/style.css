@@ -34,6 +34,10 @@
   /* Legacy iOS */
 }
 
+.main-container .cats-picture .form-managed-file {
+  max-width: 25%;
+}
+
 .main-container .page-header {
   color: #2c2c2c;
   font-size: 36px;
@@ -41,11 +45,21 @@
   font-family: "Montagu Slab", sans-serif;
 }
 
+.main-container .foxywp-form {
+  font-family: "Bebas", serif;
+  font-size: 20px;
+  color: #ad58ab;
+}
+
 .main-container .foxywp-form .page-header {
   color: #0d7ab8;
   font-size: 28px;
   font-weight: 200;
   font-family: "Montagu", serif;
+}
+
+.main-container .foxywp-form .form-wrapper .btn-success {
+  padding-inline: 10px;
 }
 
 .js-quickedit-main-content .col-sm-3 {

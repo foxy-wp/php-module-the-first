@@ -32,22 +32,26 @@ class FoxywpForm extends FormBase {
       '#type' => 'textarea',
       '#title' => $this->t("Your cat's name:"),
       '#required' => TRUE,
+      '#placeholder' => t('Name of the cat must be min-2 letters and max-32 letters'),
+      '#wrapper_attributes' => ['class' => 'input-cats-name'],
     ];
 
     $form['email'] = [
       '#type' => 'email',
       '#title' => $this->t("Your e-mail"),
       '#required' => TRUE,
+      '#placeholder' => t('example@email.com'),
     ];
 
     $form['picture'] = [
-      '#title' => t('picture'),
-      '#description' => $this->t('Image  png jpg jpeg'),
+      '#title' => t('Picture'),
+      '#description' => $this->t('Image png jpg jpeg'),
       '#type' => 'managed_file',
       '#required' => TRUE,
       '#upload_location' => 'public://images/',
       '#upload_validators' => ['file_validate_extensions' => ['png jpg jpeg']],
-      '#wrapper_attributes' => ['class' => 'subtitle-cats'],
+      '#wrapper_attributes' => ['class' => 'cats-picture'],
+
     ];
 
     $form['actions'] = [
@@ -68,7 +72,7 @@ class FoxywpForm extends FormBase {
     if (mb_strlen($form_state->getValue('message')) < 2) {
       $form_state->setErrorByName('name', $this->t("The cat's name must  be at least 2 characters."));
     }
-    elseif (mb_strlen($form_state->getValue('message')) > 32){
+    elseif (mb_strlen($form_state->getValue('message')) > 32) {
       $form_state->setErrorByName('name', $this->t("The cat's name must be no longer than 32 characters"));
     }
   }
