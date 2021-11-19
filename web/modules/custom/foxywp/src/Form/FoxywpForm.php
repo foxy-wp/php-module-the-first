@@ -4,6 +4,7 @@ namespace Drupal\foxywp\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
 
 /**
  * Provides a foxywp form.
@@ -21,7 +22,7 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-     $form['item'] = [
+    $form['item'] = [
       '#type' => 'page_title',
       '#title' => $this->t("You can add here a photo of your cat!"),
 
@@ -54,15 +55,33 @@ class FoxywpForm extends FormBase {
 
     ];
 
-    $form['actions'] = [
-      '#type' => 'actions',
-    ];
+//    $form['actions'] = [
+//      '#type' => 'actions',
+//    ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add cat'),
+      '#ajax' => [
+        'callback' => 'submitAjaxCallback',
+        'wrapper' => 'foxywp-form',
+        'event' => 'click',
+      ],
     ];
-
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitAjaxCallback(array &$form, FormStateInterface $form_state) {
+    $response = new AjaxResponse();
+    if (substr($form_state->getValue('actions')) == 'example.com') {
+      $response->addCommand(new HtmlCommand('.email-validation-message', 'This provider can lost our mail. Be care!'));
+    }
+    else {
+      $response->addCommand(new HtmlCommand('.email-validation-message', ''));
+    }
+    return $response;
   }
 
   /**
