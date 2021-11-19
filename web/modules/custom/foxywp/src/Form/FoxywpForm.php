@@ -5,6 +5,7 @@ namespace Drupal\foxywp\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
 
 /**
  * Provides a foxywp form.
@@ -22,6 +23,7 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
     $form['item'] = [
       '#type' => 'page_title',
       '#title' => $this->t("You can add here a photo of your cat!"),
@@ -44,43 +46,59 @@ class FoxywpForm extends FormBase {
       '#placeholder' => t('example@email.com'),
     ];
 
-    $form['picture'] = [
-      '#title' => t('Picture'),
-      '#description' => $this->t('Image png jpg jpeg'),
-      '#type' => 'managed_file',
-      '#required' => TRUE,
-      '#upload_location' => 'public://images/',
-      '#upload_validators' => ['file_validate_extensions' => ['png jpg jpeg']],
-      '#wrapper_attributes' => ['class' => 'cats-picture'],
+    //    $form['picture'] = [
+    //      '#title' => t('Picture'),
+    //      '#description' => $this->t('Image png jpg jpeg'),
+    //      '#type' => 'managed_file',
+    //      '#required' => TRUE,
+    //      '#upload_location' => 'public://images/',
+    //      '#upload_validators' => ['file_validate_extensions' => ['png jpg jpeg']],
+    //      '#wrapper_attributes' => ['class' => 'cats-picture'],
+    //
+    //    ];
 
+    $form['actions'] = [
+      '#type' => 'actions',
     ];
 
-//    $form['actions'] = [
-//      '#type' => 'actions',
-//    ];
     $form['actions']['submit'] = [
       '#type' => 'submit',
+      '#name' => 'submit',
       '#value' => $this->t('Add cat'),
       '#ajax' => [
-        'callback' => 'submitAjaxCallback',
+        'callback' => '::submitAjaxCallback',
         'wrapper' => 'foxywp-form',
         'event' => 'click',
+        'progress' => [
+          'type' => 'throbber',
+        ],
       ],
     ];
+
+    $form['system_messages'] = [
+      '#markup' => '<div id="cats-system-messages"></div>',
+    ];
+
     return $form;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function submitAjaxCallback(array &$form, FormStateInterface $form_state) {
+  public function submitAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
-    if (substr($form_state->getValue('actions')) == 'example.com') {
-      $response->addCommand(new HtmlCommand('.email-validation-message', 'This provider can lost our mail. Be care!'));
-    }
-    else {
-      $response->addCommand(new HtmlCommand('.email-validation-message', ''));
-    }
+    $message = [
+      '#theme' => 'status_messages',
+      '#message_list' => \Drupal::messenger()->all(),
+      '#status_headings' => [
+        'status' => t('Status message'),
+        'error' => t('Error message'),
+        'warning' => t('Warning message'),
+      ],
+    ];
+
+    $messages = \Drupal::service('renderer')->render($message);
+    $response->addCommand(new HtmlCommand('#cats-system-messages', $messages));
     return $response;
   }
 
