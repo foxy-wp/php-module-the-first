@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\CssCommand;
 
 /**
  * Provides a foxywp form.
@@ -116,6 +117,7 @@ class FoxywpForm extends FormBase {
    */
   public function emailAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
+    $valid = $this->validateEmail($form, $form_state);
     if ($valid) {
       $css = ['border' => '1px solid green'];
       $message = $this->t('Email ok.');
