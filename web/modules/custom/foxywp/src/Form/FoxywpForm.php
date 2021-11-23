@@ -32,8 +32,7 @@ class FoxywpForm extends FormBase {
     ];
 
     $form['message'] = [
-      '#type' => 'textarea',
-      '#name' => '',
+      '#type' => 'textfield',
       '#title' => $this->t("Your cat's name:"),
       '#required' => TRUE,
       '#placeholder' => t('Name of the cat must be min-2 letters and max-32 letters'),
@@ -47,25 +46,13 @@ class FoxywpForm extends FormBase {
       '#placeholder' => t('example@email.com'),
       '#ajax' => [
         'callback' => '::emailAjaxCallback',
-        'event' => 'change',
+        'event' => 'input',
         'progress' => [
-          'type' => 'throbber',
-          'message' => t('Email is invalid'),
+          'type' => 'custom',
         ],
       ],
       '#suffix' => '<div class="email-validation-message"></div>',
     ];
-
-    //    $form['picture'] = [
-    //      '#title' => t('Picture'),
-    //      '#description' => $this->t('Image png jpg jpeg'),
-    //      '#type' => 'managed_file',
-    //      '#required' => TRUE,
-    //      '#upload_location' => 'public://images/',
-    //      '#upload_validators' => ['file_validate_extensions' => ['png jpg jpeg']],
-    //      '#wrapper_attributes' => ['class' => 'cats-picture'],
-    //
-    //    ];
 
     $form['actions'] = [
       '#type' => 'actions',
@@ -97,18 +84,22 @@ class FoxywpForm extends FormBase {
    */
   public function submitAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
+    $messenger = \Drupal::messenger();
     $message = [
       '#theme' => 'status_messages',
-      '#message_list' => \Drupal::messenger()->all(),
+      '#message_list' => $messenger->all(),
       '#status_headings' => [
         'status' => t('Status message'),
         'error' => t('Error message'),
         'warning' => t('Warning message'),
       ],
     ];
+    $messenger->deleteAll();
+
 
     $messages = \Drupal::service('renderer')->render($message);
     $response->addCommand(new HtmlCommand('#cats-system-messages', $messages));
+
     return $response;
   }
 
@@ -117,17 +108,16 @@ class FoxywpForm extends FormBase {
    */
   public function emailAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
-    $valid = $this->validateEmail($form, $form_state);
-    if ($valid) {
-      $css = ['border' => '1px solid green'];
+    if (preg_match("/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/", $form_state->getValue('email'))) {
+      $css = ['border' => '2px solid green'];
       $message = $this->t('Email ok.');
     }
     else {
-      $css = ['border' => '1px solid red'];
+      $css = ['border' => '2px solid red'];
       $message = $this->t('Email not valid.');
     }
     $response->addCommand(new CssCommand('#edit-email', $css));
-    $response->addCommand(new HtmlCommand('.email-valid-message', $message));
+    $response->addCommand(new HtmlCommand('.email-validation-message', $message));
     return $response;
   }
 
