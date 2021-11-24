@@ -54,6 +54,19 @@ class FoxywpForm extends FormBase {
       '#suffix' => '<div class="email-validation-message"></div>',
     ];
 
+    $form['catimage'] = [
+      '#title' => t('image'),
+      '#description' => $this->t('Add image using one of this formats png jpg jpeg'),
+      '#type' => 'managed_file',
+      '#required' => TRUE,
+      '#upload_location' => 'public://images/',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['png jpg jpeg'],
+        'file_validate_size' => [2097152],
+      ],
+      '#wrapper_attributes' => ['class' => 'cats-picture'],
+    ];
+
     $form['actions'] = [
       '#type' => 'actions',
     ];
