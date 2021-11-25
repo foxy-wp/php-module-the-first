@@ -4,12 +4,42 @@
  * Implements hook_schema().
  */
 function foxywp_schema() {
-  $schema ['table'] = [
+  $schema ['foxywp'] = [
     'fields' => [
-      'item' =>[],
-      'message' =>[],
-      'email' => [],
-      'catimage' =>[],
+      'id' => [
+        'description' => 'The primary identifier for the record.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        ],
+      'time' =>[
+        'description' => 'Time of recording',
+        'type' => 'int',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'message' =>[
+        'description' => "Cat's name",
+        'type' => 'varchar',
+        'length' =>255,
+        'not null' => TRUE,
+        'default' => '',
+        ],
+
+      'email' => [
+        'description' => 'User email',
+        'type' => 'charset',
+        'length' => 64,
+        'not null' => TRUE,
+        'default'=> '',
+      ],
+      'catimage' =>[
+        'description' => "Name of the picture with cat",
+        'type' => 'charset',
+        'not null' => TRUE,
+        'default' => '',
+      ],
 
     ],
   ];
