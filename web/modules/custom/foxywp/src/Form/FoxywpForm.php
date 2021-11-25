@@ -107,12 +107,11 @@ class FoxywpForm extends FormBase {
         'warning' => t('Warning message'),
       ],
     ];
-    $messenger->deleteAll();
-
 
     $messages = \Drupal::service('renderer')->render($message);
     $response->addCommand(new HtmlCommand('#cats-system-messages', $messages));
 
+    $messenger->deleteAll();
     return $response;
   }
 
