@@ -4,5 +4,13 @@
  * Implements hook_schema().
  */
 function foxywp_schema() {
-  $schema('foxywp') = [];
+  $schema ['table'] = [
+    'fields' => [
+      'item' =>[],
+      'message' =>[],
+      'email' => [],
+      'catimage' =>[],
+
+    ],
+  ];
 }
