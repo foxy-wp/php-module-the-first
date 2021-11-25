@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function foxywp_schema() {
+  $schema('foxywp') = [];
+}
