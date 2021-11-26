@@ -8,6 +8,8 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\CssCommand;
 
+
+
 /**
  * Provides a foxywp form.
  */
@@ -55,7 +57,7 @@ class FoxywpForm extends FormBase {
     ];
 
     $form['catimage'] = [
-      '#title' => t('image'),
+      '#title' => t('Add picture with your cat'),
       '#description' => $this->t('Add image using one of this formats png jpg jpeg'),
       '#type' => 'managed_file',
       '#required' => TRUE,
@@ -143,6 +145,7 @@ class FoxywpForm extends FormBase {
     elseif (mb_strlen($form_state->getValue('message')) > 32) {
       $form_state->setErrorByName('name', $this->t("The cat's name must be no longer than 32 characters"));
     }
+
   }
 
   /**
@@ -151,6 +154,22 @@ class FoxywpForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The cat added'));
     $form_state->setRedirect('foxywp/cats');
+
+    $image = $form_state->getValue('catimage');
+    // Load the object of the file by its fid.
+    $file = File::load($image[0]);
+    // Set the status flag permanent of the file object.
+//    if (!empty($file)) {
+//      $file->setPermanent();
+//      // Save the file in the database.
+//      $file->save();
+//      $file_usage = \Drupal::service('file.usage');
+//      $file_usage->add($file, 'welcome', 'welcome', \Drupal::currentUser()->id());
+//    }
+//    $config = $this->config('welcome.settings');
+//    $config->set('welcome_text', $form_state->getValue('welcome_text'))
+//      ->set('welcome_image', $form_state->getValue('welcome_image'))
+//      ->save();
   }
 
 }

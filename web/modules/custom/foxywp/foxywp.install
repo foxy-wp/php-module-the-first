@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Database\Database;
+
 /**
  * Implements hook_schema().
  */
@@ -7,40 +9,64 @@ function foxywp_schema() {
   $schema ['foxywp'] = [
     'fields' => [
       'id' => [
-        'description' => 'The primary identifier for the record.',
+        'description' => 'The primary identifier',
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
-        ],
-      'time' =>[
+      ],
+      'time' => [
         'description' => 'Time of recording',
         'type' => 'int',
         'length' => 255,
         'not null' => TRUE,
         'default' => '',
       ],
-      'message' =>[
+      'message' => [
         'description' => "Cat's name",
         'type' => 'varchar',
-        'length' =>255,
+        'length' => 255,
         'not null' => TRUE,
         'default' => '',
-        ],
+      ],
 
       'email' => [
         'description' => 'User email',
         'type' => 'charset',
         'length' => 64,
         'not null' => TRUE,
-        'default'=> '',
+        'default' => '',
       ],
-      'catimage' =>[
+      'catimage' => [
         'description' => "Name of the picture with cat",
         'type' => 'charset',
         'not null' => TRUE,
         'default' => '',
       ],
-
+      'fid' => [
+        'description' => 'The image identifier',
+        'type' => 'int',
+        'length' => 20,
+        'not null' => FALSE,
+      ],
+    ],
+    'prkey' => [
+      //'myfield1_normal_index' => ['myfield1'],
+      'id',
     ],
   ];
+
+
+//  $fields = ['id'];
+  $schema = Database::getConnection()->schema();
+
+  // A normal index.
+  //$schema->addIndex('mytable', 'myfield1_normal_index', $fields, $spec);
+
+  // A primary key.
+  //$schema->addPrimaryKey('mytable', $fields);
+  // A unique key.
+  //$schema->addUniqueKey('mytable', 'myfield1_unique_key', $fields);
+
+
+  return $schema;
 }
