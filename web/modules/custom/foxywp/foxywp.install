@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\Core\Database\Database;
+//use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_schema().
@@ -54,19 +54,9 @@ function foxywp_schema() {
       'id',
     ],
   ];
-
-
-//  $fields = ['id'];
-  $schema = Database::getConnection()->schema();
-
-  // A normal index.
-  //$schema->addIndex('mytable', 'myfield1_normal_index', $fields, $spec);
-
-  // A primary key.
-  //$schema->addPrimaryKey('mytable', $fields);
-  // A unique key.
-  //$schema->addUniqueKey('mytable', 'myfield1_unique_key', $fields);
-
+//  $schema = Database::getConnection()->schema();
 
   return $schema;
+
+
 }

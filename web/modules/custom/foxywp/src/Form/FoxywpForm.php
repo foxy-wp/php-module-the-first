@@ -7,13 +7,25 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\CssCommand;
-
+use Drupal\file\Entity\File;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 
 /**
  * Provides a foxywp form.
  */
 class FoxywpForm extends FormBase {
+
+  protected $dbConnection;
+
+  /**
+   * Constructs a new MyForm object.
+   *
+   * @param \Drupal\Core\Database\Connection $dbConnection
+   */
+  public function __construct(Connection $dbConnection) {
+    $this->dbConnection = $dbConnection;
+  }
 
   /**
    * {@inheritdoc}
@@ -26,6 +38,7 @@ class FoxywpForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+
 
     $form['item'] = [
       '#type' => 'page_title',
@@ -150,26 +163,30 @@ class FoxywpForm extends FormBase {
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The cat added'));
     $form_state->setRedirect('foxywp/cats');
-
     $image = $form_state->getValue('catimage');
+    $data = [
+      'message' => $form_state->getValue('message'),
+      'last_name' => $form_state->getValue('last_name'),
+      'email' => $form_state->getValue('email'),
+      'phone' => $form_state->getValue('phone'),
+      'select' => $form_state->getValue('select'),
+      'fid' => $image[0],
+    ];
+
+
     // Load the object of the file by its fid.
     $file = File::load($image[0]);
-    // Set the status flag permanent of the file object.
-//    if (!empty($file)) {
-//      $file->setPermanent();
-//      // Save the file in the database.
-//      $file->save();
-//      $file_usage = \Drupal::service('file.usage');
-//      $file_usage->add($file, 'welcome', 'welcome', \Drupal::currentUser()->id());
-//    }
-//    $config = $this->config('welcome.settings');
-//    $config->set('welcome_text', $form_state->getValue('welcome_text'))
-//      ->set('welcome_image', $form_state->getValue('welcome_image'))
-//      ->save();
+    if (!empty($file)) {
+      $file->setPermanent();
+      $file->save();
+    }
+
   }
 
 }
