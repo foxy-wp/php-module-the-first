@@ -1,11 +1,11 @@
 <?php
 
-//use Drupal\Core\Database\Database;
+use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_schema().
  */
-function foxywp_schema() {
+function foxywp_schema(): array {
   $schema ['foxywp'] = [
     'fields' => [
       'id' => [
@@ -18,45 +18,39 @@ function foxywp_schema() {
         'description' => 'Time of recording',
         'type' => 'int',
         'length' => 255,
-        'not null' => TRUE,
-        'default' => '',
+        'default' => 0,
       ],
       'message' => [
         'description' => "Cat's name",
         'type' => 'varchar',
-        'length' => 255,
-        'not null' => TRUE,
+        'length' => 200,
         'default' => '',
       ],
-
       'email' => [
-        'description' => 'User email',
-        'type' => 'charset',
+        'type' => 'varchar',
         'length' => 64,
-        'not null' => TRUE,
         'default' => '',
       ],
-      'catimage' => [
-        'description' => "Name of the picture with cat",
-        'type' => 'charset',
-        'not null' => TRUE,
-        'default' => '',
-      ],
-      'fid' => [
-        'description' => 'The image identifier',
+      'pid' => [
+        'description' => "Cat's picture",
         'type' => 'int',
         'length' => 20,
-        'not null' => FALSE,
+        'not null' => TRUE,
       ],
     ],
-    'prkey' => [
-      //'myfield1_normal_index' => ['myfield1'],
+    'primary key' => [
       'id',
     ],
   ];
-//  $schema = Database::getConnection()->schema();
 
   return $schema;
-
-
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function foxywp_uninstall() {
+  //  Drupal::state()->delete('module_name.table_name');
+  \Drupal::state()->delete('foxywp.foxywp');
+}
+

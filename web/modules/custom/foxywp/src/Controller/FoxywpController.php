@@ -12,8 +12,9 @@ class FoxywpController extends ControllerBase {
   /**
    * Returns a simple page.
    *
+   * @file
+   * Contains Drupal/foxywp/Controller/FoxywpController.
    * @return array
-   *   A simple renderable array.
    */
   public function myPage() {
 

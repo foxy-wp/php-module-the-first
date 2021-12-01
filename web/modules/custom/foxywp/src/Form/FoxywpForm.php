@@ -7,25 +7,37 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\CssCommand;
+use Drupal\Core\Database\Connection;
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 
 /**
  * Provides a foxywp form.
  */
 class FoxywpForm extends FormBase {
 
-  protected $dbConnection;
-
-  /**
-   * Constructs a new MyForm object.
-   *
-   * @param \Drupal\Core\Database\Connection $dbConnection
-   */
-  public function __construct(Connection $dbConnection) {
-    $this->dbConnection = $dbConnection;
-  }
+  //  protected $dbConnection;
+  //
+  //  /**
+  //   * Constructs a new catForm object.
+  //   *
+  //   * @param \Drupal\Core\Database\Connection $dbConnection
+  //   */
+  //  public function __construct(Connection $dbConnection) {
+  //    $this->dbConnection = $dbConnection;
+  //  }
+  //
+  //  /**
+  //   *
+  //   */
+  //  public static function create(ContainerInterface $container) {
+  //
+  //    /**
+  //     * @var \Drupal\Core\Database\Connection $dbConnection
+  //     */
+  //    $dbConnection = $container->get('foxywp');
+  //    return new static($dbConnection);
+  //  }
 
   /**
    * {@inheritdoc}
@@ -39,7 +51,6 @@ class FoxywpForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-
     $form['item'] = [
       '#type' => 'page_title',
       '#title' => $this->t("You can add here a photo of your cat!"),
@@ -50,7 +61,9 @@ class FoxywpForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t("Your cat's name:"),
       '#required' => TRUE,
-      '#placeholder' => t('Name of the cat must be min-2 letters and max-32 letters'),
+      '#placeholder' => t(
+        'Name of the cat must be min-2 letters and max-32 letters'
+      ),
       '#wrapper_attributes' => ['class' => 'input-cats-name'],
     ];
 
@@ -71,13 +84,15 @@ class FoxywpForm extends FormBase {
 
     $form['catimage'] = [
       '#title' => t('Add picture with your cat'),
-      '#description' => $this->t('Add image using one of this formats png jpg jpeg'),
+      '#description' => $this->t(
+        'Add image using one of this formats png jpg jpeg'
+      ),
       '#type' => 'managed_file',
       '#required' => TRUE,
       '#upload_location' => 'public://images/',
       '#upload_validators' => [
         'file_validate_extensions' => ['png jpg jpeg'],
-        'file_validate_size' => [2097152],
+        'file_validate_size' => [2 * 1024 * 1024],
       ],
       '#wrapper_attributes' => ['class' => 'cats-picture'],
     ];
@@ -124,18 +139,31 @@ class FoxywpForm extends FormBase {
     ];
 
     $messages = \Drupal::service('renderer')->render($message);
-    $response->addCommand(new HtmlCommand('#cats-system-messages', $messages));
+    $response->addCommand(
+      new HtmlCommand(
+        '#cats-system-messages',
+        $messages
+      )
+    );
 
     $messenger->deleteAll();
+
     return $response;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function emailAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
+  public function emailAjaxCallback(
+    array              &$form,
+    FormStateInterface $form_state
+  ): AjaxResponse {
     $response = new AjaxResponse();
-    if (preg_match("/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/", $form_state->getValue('email'))) {
+    if (preg_match(
+      "/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/",
+      $form_state->getValue('email')
+    )
+    ) {
       $css = ['border' => '2px solid green'];
       $message = $this->t('Email ok.');
     }
@@ -144,7 +172,10 @@ class FoxywpForm extends FormBase {
       $message = $this->t('Email not valid.');
     }
     $response->addCommand(new CssCommand('#edit-email', $css));
-    $response->addCommand(new HtmlCommand('.email-validation-message', $message));
+    $response->addCommand(
+      new HtmlCommand('.email-validation-message', $message)
+    );
+
     return $response;
   }
 
@@ -153,12 +184,17 @@ class FoxywpForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if (mb_strlen($form_state->getValue('message')) < 2) {
-      $form_state->setErrorByName('name', $this->t("The cat's name must  be at least 2 characters."));
+      $form_state->setErrorByName(
+        'name',
+        $this->t("The cat's name must  be at least 2 characters.")
+      );
     }
     elseif (mb_strlen($form_state->getValue('message')) > 32) {
-      $form_state->setErrorByName('name', $this->t("The cat's name must be no longer than 32 characters"));
+      $form_state->setErrorByName(
+        'name',
+        $this->t("The cat's name must be no longer than 32 characters")
+      );
     }
-
   }
 
   /**
@@ -172,13 +208,9 @@ class FoxywpForm extends FormBase {
     $image = $form_state->getValue('catimage');
     $data = [
       'message' => $form_state->getValue('message'),
-      'last_name' => $form_state->getValue('last_name'),
       'email' => $form_state->getValue('email'),
-      'phone' => $form_state->getValue('phone'),
-      'select' => $form_state->getValue('select'),
       'fid' => $image[0],
     ];
-
 
     // Load the object of the file by its fid.
     $file = File::load($image[0]);
@@ -186,7 +218,6 @@ class FoxywpForm extends FormBase {
       $file->setPermanent();
       $file->save();
     }
-
   }
 
 }

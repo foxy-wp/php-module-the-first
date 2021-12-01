@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\Core\Routing\RouteMatchInterface;
+//use Drupal\Core\Database\Database;
 
 /**
  * Implements hook_help().
@@ -15,3 +16,10 @@ function foxywp_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+
+
+
+
+
+
