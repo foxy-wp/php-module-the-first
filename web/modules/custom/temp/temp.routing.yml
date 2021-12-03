@@ -1,0 +1,15 @@
+temp.example:
+  path: '/temp/example'
+  defaults:
+    _title: 'Example'
+    _controller: '\Drupal\temp\Controller\TempController::build'
+  requirements:
+    _permission: 'access content'
+
+temp.settings_form:
+  path: '/temp'
+  defaults:
+    _title: 'Temp settings'
+    _form: 'Drupal\temp\Form\SettingsForm'
+  requirements:
+    _permission: 'administer temp configuration'

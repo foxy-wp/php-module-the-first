@@ -1,0 +1,6 @@
+services:
+  temp.event_subscriber:
+    class: Drupal\temp\EventSubscriber\TempSubscriber
+    arguments: ['@messenger']
+    tags:
+      - { name: event_subscriber }

@@ -17,8 +17,7 @@ function foxywp_schema(): array {
       'time' => [
         'description' => 'Time of recording',
         'type' => 'int',
-        'length' => 255,
-        'default' => 0,
+        'default' => NULL,
       ],
       'message' => [
         'description' => "Cat's name",
@@ -46,11 +45,5 @@ function foxywp_schema(): array {
   return $schema;
 }
 
-/**
- * Implements hook_uninstall().
- */
-function foxywp_uninstall() {
-  //  Drupal::state()->delete('module_name.table_name');
-  \Drupal::state()->delete('foxywp.foxywp');
-}
+
 

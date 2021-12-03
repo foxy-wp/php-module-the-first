@@ -10,46 +10,48 @@ use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Database\Connection;
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Provides a foxywp form.
  */
 class FoxywpForm extends FormBase {
 
-  //  protected $dbConnection;
-  //
-  //  /**
-  //   * Constructs a new catForm object.
-  //   *
-  //   * @param \Drupal\Core\Database\Connection $dbConnection
-  //   */
-  //  public function __construct(Connection $dbConnection) {
-  //    $this->dbConnection = $dbConnection;
-  //  }
-  //
-  //  /**
-  //   *
-  //   */
-  //  public static function create(ContainerInterface $container) {
-  //
-  //    /**
-  //     * @var \Drupal\Core\Database\Connection $dbConnection
-  //     */
-  //    $dbConnection = $container->get('foxywp');
-  //    return new static($dbConnection);
-  //  }
+  private $dbConnection;
+
+  /**
+   * Constructs a new catForm object.
+   *
+   * @param \Drupal\Core\Database\Connection $dbConnection
+   */
+  public function __construct(Connection $dbConnection) {
+    $this->dbConnection = $dbConnection;
+  }
+
+  /**
+   *
+   */
+  public static function create(ContainerInterface $container): FoxywpForm {
+
+    /**
+     * @var \Drupal\Core\Database\Connection $dbConnection
+     */
+    $dbConnection = $container->get('database');
+    return new static($dbConnection);
+  }
 
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'foxywp_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
 
     $form['item'] = [
       '#type' => 'page_title',
@@ -140,10 +142,7 @@ class FoxywpForm extends FormBase {
 
     $messages = \Drupal::service('renderer')->render($message);
     $response->addCommand(
-      new HtmlCommand(
-        '#cats-system-messages',
-        $messages
-      )
+      new HtmlCommand('#cats-system-messages', $messages)
     );
 
     $messenger->deleteAll();
@@ -154,10 +153,7 @@ class FoxywpForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function emailAjaxCallback(
-    array              &$form,
-    FormStateInterface $form_state
-  ): AjaxResponse {
+  public function emailAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
     if (preg_match(
       "/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/",
@@ -205,19 +201,31 @@ class FoxywpForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The cat added'));
     $form_state->setRedirect('foxywp/cats');
+
+    //??? $catstime = date("d/m/y h:i:s");
     $image = $form_state->getValue('catimage');
     $data = [
       'message' => $form_state->getValue('message'),
       'email' => $form_state->getValue('email'),
-      'fid' => $image[0],
+      'pid' => $image[0],
+      'time' => time(),
     ];
 
-    // Load the object of the file by its fid.
+    // Load the object of the file by its Pid.
     $file = File::load($image[0]);
     if (!empty($file)) {
       $file->setPermanent();
       $file->save();
     }
+    // Insert data to database via Dependency injection.
+    $this->dbConnection->insert('foxywp')->fields($data)->execute();
+    // \Drupal::database()->insert('foxywp')->fields($data)->execute();=\Drupal::service('database');
+
+
+    \Drupal::messenger()->addStatus('Succesfully saved');
+    $url = new Url('foxywp.my_page');
+    $response = new RedirectResponse($url->toString());
+    $response->send();
   }
 
 }

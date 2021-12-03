@@ -14,16 +14,22 @@ class FoxywpController extends ControllerBase {
    *
    * @file
    * Contains Drupal/foxywp/Controller/FoxywpController.
+   *
    * @return array
+   */
+
+  /**
+   *
    */
   public function myPage() {
 
     $builtForm = \Drupal::formBuilder()->getForm('Drupal\foxywp\Form\FoxywpForm');
-    $renderArray['form'] = $builtForm;
 
-    return $renderArray;
+    return [
+      '#theme' => 'cats-twig',
+      // Instead    $renderArray['form'] = $builtForm;.
+      'form' => $builtForm,
+    ];
   }
 
 }
-
-
