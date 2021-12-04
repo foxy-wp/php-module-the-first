@@ -7,5 +7,14 @@ foxywp.my_page:
     _permission: 'access content'
 
 
+foxywp.displaycats:
+  path: '/foxywp/index'
+  defaults:
+    _controller: '\Drupal\foxywp\Controller\FoxywpController::index'
+    _title: 'Cats info'
+  requirements:
+    _permission: 'access content'
+
+
 
 

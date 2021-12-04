@@ -10,15 +10,16 @@ use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Database\Connection;
 use Drupal\file\Entity\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Provides a foxywp form.
  */
 class FoxywpForm extends FormBase {
 
-  private $dbConnection;
+  /**
+   * Protected variable.
+   */
+  protected $dbConnection;
 
   /**
    * Constructs a new catForm object.
@@ -156,7 +157,7 @@ class FoxywpForm extends FormBase {
   public function emailAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
     if (preg_match(
-      "/^[a-zA-Z_\-]+@[a-zA-Z_\-\.]+\.[a-zA-Z\.]{2,6}+$/",
+      "/^[a-zA-Z_\-]+@[a-zA-Z_\-]+\.[a-zA-Z]+\.[a-zA-Z]{2,6}+$/",
       $form_state->getValue('email')
     )
     ) {
@@ -202,7 +203,7 @@ class FoxywpForm extends FormBase {
     $this->messenger()->addStatus($this->t('The cat added'));
     $form_state->setRedirect('foxywp/cats');
 
-    //??? $catstime = date("d/m/y h:i:s");
+    // Better (int) time() than (varchar) date("d/m/y h:i:s");.
     $image = $form_state->getValue('catimage');
     $data = [
       'message' => $form_state->getValue('message'),
@@ -219,13 +220,7 @@ class FoxywpForm extends FormBase {
     }
     // Insert data to database via Dependency injection.
     $this->dbConnection->insert('foxywp')->fields($data)->execute();
-    // \Drupal::database()->insert('foxywp')->fields($data)->execute();=\Drupal::service('database');
-
-
-    \Drupal::messenger()->addStatus('Succesfully saved');
-    $url = new Url('foxywp.my_page');
-    $response = new RedirectResponse($url->toString());
-    $response->send();
+    // Without Dependency injection \Drupal::database()->insert('foxywp')->fields($data)->execute();=\Drupal::service('database');
   }
 
 }

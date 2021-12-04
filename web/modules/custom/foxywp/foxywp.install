@@ -37,9 +37,7 @@ function foxywp_schema(): array {
         'not null' => TRUE,
       ],
     ],
-    'primary key' => [
-      'id',
-    ],
+    'primary key' => ['id'],
   ];
 
   return $schema;
