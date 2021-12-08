@@ -71,7 +71,7 @@ class FoxywpController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header_table,
       '#rows' => array_reverse($rows),
-      '#empty' => t('No data found'),
+      '#empty' => t('No data  found'),
     ];
     return $form;
 
