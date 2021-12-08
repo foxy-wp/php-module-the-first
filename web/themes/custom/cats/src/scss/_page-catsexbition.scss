@@ -10,23 +10,40 @@
   .page-header {
     color: #2c2c2c;
     font-size: 36px;
-    font-weight: 200;
-    font-family: 'Montagu Slab', sans-serif;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
   }
 
   .foxywp-form {
-    font-family: 'Bebas', serif;
-    font-size: 20px;
-    color: #ad58ab;
+    font-family: 'Source Sans Pro', serif;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #8a8b8e;
+
     .page-header {
-      color: #0d7ab8;
-      font-size: 28px;
-      font-weight: 200;
-      font-family: 'Montagu', serif;
+      font-size: 30px;
+      line-height: 1.2;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #000000;
+      font-family: 'Montserrat', serif;
+      text-align: center;
     }
-    .form-wrapper{
+    .form-actions{
       .btn-success{
         padding-inline: 10px;
+        width: 160px;
+        height: 50px;
+        background-color: #d05715;
+        border-radius: 25px;
+        border: none;
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #ffffff;
+
       }
     }
   }

@@ -1,39 +1,39 @@
-/* montagu-slab-200 - latin */
+/* montserrat-regular - latin_cyrillic */
 @font-face {
-  font-family: 'Montagu';
-  font-style: normal;
-  font-weight: 200;
-  src: url('../fonts/montagu-slab-v1-latin-200.eot'); /* IE9 Compat Modes */
-  src: local(''),
-  url('../fonts/montagu-slab-v1-latin-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('../fonts/montagu-slab-v1-latin-200.woff2') format('woff2'), /* Super Modern Browsers */
-  url('../fonts/montagu-slab-v1-latin-200.woff') format('woff'), /* Modern Browsers */
-  url('../fonts/montagu-slab-v1-latin-200.ttf') format('truetype'), /* Safari, Android, iOS */
-  url('../fonts/montagu-slab-v1-latin-200.svg#MontaguSlab') format('svg'); /* Legacy iOS */
-}
-/* montagu-slab-regular - latin */
-@font-face {
-  font-family: 'Montagu Slab';
+  font-family: 'Montserrat';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/montagu-slab-v1-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/montserrat-v18-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
-  url('../fonts/montagu-slab-v1-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('../fonts/montagu-slab-v1-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-  url('../fonts/montagu-slab-v1-latin-regular.woff') format('woff'), /* Modern Browsers */
-  url('../fonts/montagu-slab-v1-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-  url('../fonts/montagu-slab-v1-latin-regular.svg#MontaguSlab') format('svg'); /* Legacy iOS */
+  url('../fonts/montserrat-v18-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/montserrat-v18-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/montserrat-v18-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/montserrat-v18-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/montserrat-v18-latin_cyrillic-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
 }
-/* bebas-neue-regular - latin */
+/* montserrat-700 - latin_cyrillic */
 @font-face {
-  font-family: 'Bebas';
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/montserrat-v18-latin_cyrillic-700.eot'); /* IE9 Compat Modes */
+  src: local(''),
+  url('../fonts/montserrat-v18-latin_cyrillic-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/montserrat-v18-latin_cyrillic-700.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/montserrat-v18-latin_cyrillic-700.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/montserrat-v18-latin_cyrillic-700.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/montserrat-v18-latin_cyrillic-700.svg#Montserrat') format('svg'); /* Legacy iOS */
+}
+/* source-sans-pro-regular - latin_cyrillic */
+@font-face {
+  font-family: 'Source Sans Pro';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/bebas-neue-v2-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('../fonts/source-sans-pro-v18-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
   src: local(''),
-  url('../fonts/bebas-neue-v2-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('../fonts/bebas-neue-v2-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-  url('../fonts/bebas-neue-v2-latin-regular.woff') format('woff'), /* Modern Browsers */
-  url('../fonts/bebas-neue-v2-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-  url('../fonts/bebas-neue-v2-latin-regular.svg#BebasNeue') format('svg'); /* Legacy iOS */
+  url('../fonts/source-sans-pro-v18-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/source-sans-pro-v18-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('../fonts/source-sans-pro-v18-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */
+  url('../fonts/source-sans-pro-v18-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('../fonts/source-sans-pro-v18-latin_cyrillic-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
 }

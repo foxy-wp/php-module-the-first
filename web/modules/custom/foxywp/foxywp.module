@@ -9,9 +9,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
 function foxywp_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.foxywp':
-      $output = '';
-      $output .= '<h3>' . t('My first hook') . '</h3>';
-      $output .= '<p>' . t('This is module about cats.') . '</p>';
+      $output = '<h3>' . t('My first hook') . '</h3>';
+      $output .= '<p>' . t('This is module about cats exhibition.') . '</p>';
       return $output;
     default:
   }
@@ -19,14 +18,20 @@ function foxywp_help($route_name, RouteMatchInterface $route_match) {
 
 /**
  * Implements hook_theme().
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ * @return array
  */
-function foxywp_theme($existing, $type, $theme, $path) {
+function foxywp_theme($existing, $type, $theme, $path): array {
   return [
-    'name-twig'=>[
-      'render element'=>'form',
-      'varibles'=>[
-        'form' => NULL,
-      ]
+    'cat_twig'=>[
+//      'render element'=>'form',
+      'variables'=>[
+        'form' => [],
+        'table'=>[],
+      ],
     ],
   ];
 }

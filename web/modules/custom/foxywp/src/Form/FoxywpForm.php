@@ -221,6 +221,8 @@ class FoxywpForm extends FormBase {
     // Insert data to database via Dependency injection.
     $this->dbConnection->insert('foxywp')->fields($data)->execute();
     // Without Dependency injection \Drupal::database()->insert('foxywp')->fields($data)->execute();=\Drupal::service('database');
+
+
   }
 
 }
