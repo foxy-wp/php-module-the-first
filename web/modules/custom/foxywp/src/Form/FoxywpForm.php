@@ -157,7 +157,7 @@ class FoxywpForm extends FormBase {
   public function emailAjaxCallback(array &$form, FormStateInterface $form_state): AjaxResponse {
     $response = new AjaxResponse();
     if (preg_match(
-      "/^[a-zA-Z_\-]+@[a-zA-Z_\-]+\.[a-zA-Z]+\.[a-zA-Z]{2,6}+$/",
+      "/^[a-zA-Z_\-]+@[a-zA-Z_\-]+\.[a-zA-Z.]{2,6}+$/",
       $form_state->getValue('email')
     )
     ) {
