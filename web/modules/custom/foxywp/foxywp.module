@@ -34,7 +34,6 @@ function foxywp_theme($existing, $type, $theme, $path): array {
         'form' => [],
         'table' => [],
         'image' => NULL,
-        'results' => NULL
       ],
     ],
   ];

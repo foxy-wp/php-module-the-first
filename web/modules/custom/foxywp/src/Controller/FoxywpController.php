@@ -32,8 +32,8 @@ class FoxywpController extends ControllerBase {
 
     return [
       // Instead    $renderArray['form'] = $builtForm;.
-      '#form' => $builtForm,
       '#theme' => 'cat_twig',
+      '#form' => $builtForm,
       '#table' => $outCatTable,
       '#image' => $picture,
     ];
@@ -46,15 +46,15 @@ class FoxywpController extends ControllerBase {
 
     // Create table header.
     $header_table = [
-      'id' => t('ID'),
       'message' => t('Cats name'),
-      'pid' => t('pid'),
       'email' => t('Email'),
       'time' => t('time'),
+      'pid' => t('pid'),
     ];
     // Get data from database.
     $query = \Drupal::database()->select('foxywp', 'tb');
     $query->fields('tb', ['id', 'message', 'pid', 'email', 'time']);
+    // Sort by time option.
     $query->orderBy('time', 'DESC');
     $results = $query->execute()->fetchAll();
     $rows = [];
@@ -62,11 +62,11 @@ class FoxywpController extends ControllerBase {
 
       // Get data  $data['pid'] = $data->pid.
       $rows[] = [
-        'id' => $data->id,
         'cats_name' => $data->message,
-        'picture_cat' => File::load(intval($data->pid))->createFileUrl(),
         'email' => $data->email,
         'time' => date("d/m/Y H:i:s", $data->time),
+        'picture_cat' => File::load(intval($data->pid))
+          ->createFileUrl(),
       ];
     }
     // Render table.
@@ -74,6 +74,7 @@ class FoxywpController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header_table,
       '#rows' => $rows,
+      '#caption' => t('CATS LIST'),
       '#empty' => t('No data found'),
     ];
     return $form;
