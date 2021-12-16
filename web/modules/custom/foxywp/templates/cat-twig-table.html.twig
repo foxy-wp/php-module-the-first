@@ -1,1 +1,10 @@
 {{ header }}
+{{ date }}
+{% for item in rows %}
+  <h1> {{ item.cats_name }} </h1>
+  <h1> {{ item.email }} </h1>
+  <h1> {{ item.time }} </h1>
+  <h1> <img src='{{ item.picture_cat }}' width='150' height='250' /></h1>
+
+
+{% endfor %}

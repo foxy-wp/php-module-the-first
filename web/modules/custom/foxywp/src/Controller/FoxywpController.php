@@ -115,45 +115,4 @@ class FoxywpController extends ControllerBase {
     ];
   }
 
-  /**
-   *
-   */
-//  public function index(): array {
-//
-//    $conn = Database::getConnection();
-//
-//    $query = $conn->select('foxywp', 'm')->fields('m', [
-//      'id',
-//      'message',
-//      'pid',
-//      'email',
-//      'time',
-//    ]);
-//    $alldata = $query->execute()->fetchAssoc();
-//    $rows = [];
-//    // Render table.
-//    foreach ($alldata as $data) {
-//      // Get data  $data['pid'] = $data->pid.
-//      $pid = intval($alldata['pid']);
-//      $file = File::load($pid);
-//      $picture = $file->createFileUrl();
-//      $pid = [
-//        '#theme' => 'image',
-//        '#url' => $picture,
-//        '#attributes' => [
-//          'class' => 'cat-photo',
-//        ],
-//      ];
-//
-//      $rows[] = [
-//        'cats_name' => $data->message,
-//        'email' => $data->email,
-//        'cat_photo' => $pid,
-//        'url' => $picture,
-//        'time' => $data->time,
-//      ];
-//    }
-//    return $rows;
-//  }
-
 }
