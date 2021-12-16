@@ -1,0 +1,6 @@
+custom.pagetest:
+  title: 'TEST'
+  description: 'Link to my cats module page'
+  route_name: custom.page
+  weight: 20
+  menu_name: main

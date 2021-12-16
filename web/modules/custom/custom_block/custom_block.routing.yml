@@ -1,0 +1,9 @@
+custom.page:
+  path: 'trycustom/path'
+  defaults:
+    _title: 'RouteTitle'
+    _controller: '\Drupal\custom_block\Controller\CustomBlockController::allContent'
+  requirements:
+    _permission: 'access content'
+
+

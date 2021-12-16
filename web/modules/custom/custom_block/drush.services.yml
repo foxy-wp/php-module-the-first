@@ -1,0 +1,5 @@
+services:
+  custom_block.commands:
+    class: \Drupal\custom_block\Commands\CustomBlockCommands
+    tags:
+      - { name: drush.command }

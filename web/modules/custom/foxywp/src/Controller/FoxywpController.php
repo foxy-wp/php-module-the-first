@@ -27,22 +27,31 @@ class FoxywpController extends ControllerBase {
 
     $builtForm = \Drupal::formBuilder()
       ->getForm('Drupal\foxywp\Form\FoxywpForm');
-    $outCatTable = $this->index();
+    $outCatTableHeader = $this->headerTable();
+    $catTableRows = $this->index();
     $picture = $this->show();
 
-    return [
-      // Instead    $renderArray['form'] = $builtForm;.
+    $results = [];
+
+    $results[] = [
       '#theme' => 'cat_twig',
       '#form' => $builtForm,
-      '#table' => $outCatTable,
       '#image' => $picture,
     ];
+
+    $results[] = [
+      '#theme' => 'cat_twig_table',
+      '#header' => $outCatTableHeader,
+      '#rows' => $catTableRows,
+    ];
+
+    return $results;
   }
 
   /**
-   * Display the output in the table format.
+   * Display the header for table.
    */
-  public function index(): array {
+  public function headerTable(): array {
 
     // Create table header.
     $header_table = [
@@ -51,6 +60,20 @@ class FoxywpController extends ControllerBase {
       'time' => t('time'),
       'pid' => t('pid'),
     ];
+    $form['table'] = [
+      '#type' => 'table',
+      '#header' => $header_table,
+      '#caption' => t('CATS LIST'),
+      '#empty' => t('No data found'),
+    ];
+    return $form;
+  }
+
+  /**
+   * Display the output in the table format.
+   */
+  public function index(): array {
+
     // Get data from database.
     $query = \Drupal::database()->select('foxywp', 'tb');
     $query->fields('tb', ['id', 'message', 'pid', 'email', 'time']);
@@ -58,6 +81,7 @@ class FoxywpController extends ControllerBase {
     $query->orderBy('time', 'DESC');
     $results = $query->execute()->fetchAll();
     $rows = [];
+    // Render table.
     foreach ($results as $data) {
 
       // Get data  $data['pid'] = $data->pid.
@@ -65,19 +89,10 @@ class FoxywpController extends ControllerBase {
         'cats_name' => $data->message,
         'email' => $data->email,
         'time' => date("d/m/Y H:i:s", $data->time),
-        'picture_cat' => File::load(intval($data->pid))
-          ->createFileUrl(),
+        'picture_cat' => File::load(intval($data->pid))->createFileUrl(),
       ];
     }
-    // Render table.
-    $form['table'] = [
-      '#type' => 'table',
-      '#header' => $header_table,
-      '#rows' => $rows,
-      '#caption' => t('CATS LIST'),
-      '#empty' => t('No data found'),
-    ];
-    return $form;
+    return $rows;
   }
 
   /**
@@ -99,5 +114,46 @@ class FoxywpController extends ControllerBase {
       '#markup' => "<img src='$picture' width='150' height='250' /> <br>",
     ];
   }
+
+  /**
+   *
+   */
+//  public function index(): array {
+//
+//    $conn = Database::getConnection();
+//
+//    $query = $conn->select('foxywp', 'm')->fields('m', [
+//      'id',
+//      'message',
+//      'pid',
+//      'email',
+//      'time',
+//    ]);
+//    $alldata = $query->execute()->fetchAssoc();
+//    $rows = [];
+//    // Render table.
+//    foreach ($alldata as $data) {
+//      // Get data  $data['pid'] = $data->pid.
+//      $pid = intval($alldata['pid']);
+//      $file = File::load($pid);
+//      $picture = $file->createFileUrl();
+//      $pid = [
+//        '#theme' => 'image',
+//        '#url' => $picture,
+//        '#attributes' => [
+//          'class' => 'cat-photo',
+//        ],
+//      ];
+//
+//      $rows[] = [
+//        'cats_name' => $data->message,
+//        'email' => $data->email,
+//        'cat_photo' => $pid,
+//        'url' => $picture,
+//        'time' => $data->time,
+//      ];
+//    }
+//    return $rows;
+//  }
 
 }

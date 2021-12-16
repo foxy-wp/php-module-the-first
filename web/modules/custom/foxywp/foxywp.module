@@ -7,13 +7,12 @@ use Drupal\file\Entity\File;
  * Implements hook_help().
  */
 function foxywp_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    case 'help.page.foxywp':
-      $output = '<h3>' . t('My first hook') . '</h3>';
-      $output .= '<p>' . t('This is module about cats exhibition.') . '</p>';
-      return $output;
-    default:
+  if ($route_name == 'help.page.foxywp') {
+    $output = '<h3>' . t('My first hook') . '</h3>';
+    $output .= '<p>' . t('This is module about cats exhibition.') . '</p>';
+    return $output;
   }
+
 }
 
 /**
@@ -29,14 +28,21 @@ function foxywp_help($route_name, RouteMatchInterface $route_match) {
 function foxywp_theme($existing, $type, $theme, $path): array {
   return [
     'cat_twig' => [
-      //      'render element'=>'form',
+      // 'render element'=>'form',
       'variables' => [
         'form' => [],
-        'table' => [],
         'image' => NULL,
       ],
+      ],
+    //template for output info.
+    'cat_twig_table' => [
+        'variables' => [
+          'header' => [],
+          'rows' => [],
+        ],
+      'file' => 'foxywp.theme.inc',
     ],
-  ];
+    ];
 }
 
 
